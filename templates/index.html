@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Jobs Automation & Career Prediction Dashboard</title>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="logo-section">
+                    <i class="fas fa-robot logo-icon"></i>
+                    <h1>AI Jobs Automation & Career Prediction Dashboard</h1>
+                </div>
+                <p class="subtitle">Machine Learning Dashboard for Job Risk & Career Analysis</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Prediction Cards Grid -->
+            <div class="cards-grid">
+                
+                <!-- Card 1: Simple Linear Regression -->
+                <div class="prediction-card">
+                    <div class="card-header">
+                        <div class="icon-wrapper slr-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Simple Linear Regression</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="description">Predict <strong>Average Salary</strong> using <strong>Years Experience</strong></p>
+                        
+                        <div class="input-group">
+                            <label for="slr-experience">
+                                <i class="fas fa-briefcase"></i> Years Experience
+                            </label>
+                            <input type="number" id="slr-experience" 
+                                   min="0" max="50" step="1" 
+                                   placeholder="e.g., 5" value="5">
+                        </div>
+                        
+                        <button class="predict-btn" onclick="predictSLR()">
+                            <i class="fas fa-cog"></i> Predict Salary
+                        </button>
+                        
+                        <div class="result-section" id="slr-result">
+                            <div class="result-placeholder">
+                                <i class="fas fa-calculator"></i>
+                                <span>Enter values and click Predict</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Multiple Linear Regression -->
+                <div class="prediction-card">
+                    <div class="card-header">
+                        <div class="icon-wrapper mlr-icon">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <h3>Multiple Linear Regression</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="description">Predict <strong>Automation Probability 2030</strong> using multiple features</p>
+                        
+                        <div class="input-group">
+                            <label for="mlr-ai-exposure">
+                                <i class="fas fa-brain"></i> AI Exposure Index (0-1)
+                            </label>
+                            <input type="number" id="mlr-ai-exposure" 
+                                   min="0" max="1" step="0.01" 
+                                   placeholder="e.g., 0.75" value="0.5">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="mlr-tech-growth">
+                                <i class="fas fa-chart-pie"></i> Tech Growth Factor (0.5-1.5)
+                            </label>
+                            <input type="number" id="mlr-tech-growth" 
+                                   min="0.5" max="1.5" step="0.01" 
+                                   placeholder="e.g., 1.2" value="1.0">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="mlr-experience">
+                                <i class="fas fa-briefcase"></i> Years Experience
+                            </label>
+                            <input type="number" id="mlr-experience" 
+                                   min="0" max="50" step="1" 
+                                   placeholder="e.g., 5" value="5">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="mlr-salary">
+                                <i class="fas fa-rupee-sign"></i> Average Salary (₹)
+                            </label>
+                            <input type="number" id="mlr-salary" 
+                                   min="0" step="1000" 
+                                   placeholder="e.g., 75000" value="75000">
+                        </div>
+                        
+                        <button class="predict-btn" onclick="predictMLR()">
+                            <i class="fas fa-cog"></i> Predict
+                        </button>
+                        
+                        <div class="result-section" id="mlr-result">
+                            <div class="result-placeholder">
+                                <i class="fas fa-calculator"></i>
+                                <span>Enter values and click Predict</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Polynomial Regression -->
+                <div class="prediction-card">
+                    <div class="card-header">
+                        <div class="icon-wrapper polynomial-icon">
+                            <i class="fas fa-wave-square"></i>
+                        </div>
+                        <h3>Polynomial Regression</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="description">Predict <strong>Automation Probability</strong> using <strong>degree=3</strong> polynomial</p>
+                        
+                        <div class="input-group">
+                            <label for="poly-ai-exposure">
+                                <i class="fas fa-brain"></i> AI Exposure Index (0-1)
+                            </label>
+                            <input type="number" id="poly-ai-exposure" 
+                                   min="0" max="1" step="0.01" 
+                                   placeholder="e.g., 0.75" value="0.5">
+                        </div>
+                        
+                        <button class="predict-btn" onclick="predictPolynomial()">
+                            <i class="fas fa-cog"></i> Predict Automation Probability
+                        </button>
+                        
+                        <div class="result-section" id="poly-result">
+                            <div class="result-placeholder">
+                                <i class="fas fa-calculator"></i>
+                                <span>Enter values and click Predict</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4: Logistic Regression -->
+                <div class="prediction-card">
+                    <div class="card-header">
+                        <div class="icon-wrapper logistic-icon">
+                            <i class="fas fa-sitemap"></i>
+                        </div>
+                        <h3>Logistic Regression</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="description">Predict <strong>Risk Category</strong> (Low/Medium/High)</p>
+                        
+                        <div class="input-group">
+                            <label for="logistic-ai-exposure">
+                                <i class="fas fa-brain"></i> AI Exposure Index (0-1)
+                            </label>
+                            <input type="number" id="logistic-ai-exposure" 
+                                   min="0" max="1" step="0.01" 
+                                   placeholder="e.g., 0.75" value="0.5">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="logistic-tech-growth">
+                                <i class="fas fa-chart-pie"></i> Tech Growth Factor (0.5-1.5)
+                            </label>
+                            <input type="number" id="logistic-tech-growth" 
+                                   min="0.5" max="1.5" step="0.01" 
+                                   placeholder="e.g., 1.2" value="1.0">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="logistic-experience">
+                                <i class="fas fa-briefcase"></i> Years Experience
+                            </label>
+                            <input type="number" id="logistic-experience" 
+                                   min="0" max="50" step="1" 
+                                   placeholder="e.g., 5" value="5">
+                        </div>
+                        
+                        <button class="predict-btn" onclick="predictLogistic()">
+                            <i class="fas fa-cog"></i> Predict
+                        </button>
+                        
+                        <div class="result-section" id="logistic-result">
+                            <div class="result-placeholder">
+                                <i class="fas fa-calculator"></i>
+                                <span>Enter values and click Predict</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 5: KNN Classification -->
+                <div class="prediction-card">
+                    <div class="card-header">
+                        <div class="icon-wrapper knn-icon">
+                            <i class="fas fa-share-nodes"></i>
+                        </div>
+                        <h3>KNN Classification</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="description">Predict <strong>Education Level</strong> (High School/Bachelor's/Master's/PhD)</p>
+                        
+                        <div class="input-group">
+                            <label for="knn-salary">
+                                <i class="fas fa-rupee-sign"></i> Average Salary (₹)
+                            </label>
+                            <input type="number" id="knn-salary" 
+                                   min="0" step="1000" 
+                                   placeholder="e.g., 75000" value="75000">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="knn-experience">
+                                <i class="fas fa-briefcase"></i> Years Experience
+                            </label>
+                            <input type="number" id="knn-experience" 
+                                   min="0" max="50" step="1" 
+                                   placeholder="e.g., 5" value="5">
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="knn-ai-exposure">
+                                <i class="fas fa-brain"></i> AI Exposure Index (0-1)
+                            </label>
+                            <input type="number" id="knn-ai-exposure" 
+                                   min="0" max="1" step="0.01" 
+                                   placeholder="e.g., 0.75" value="0.5">
+                        </div>
+                        
+                        <button class="predict-btn" onclick="predictKNN()">
+                            <i class="fas fa-cog"></i> Predict Education Level
+                        </button>
+                        
+                        <div class="result-section" id="knn-result">
+                            <div class="result-placeholder">
+                                <i class="fas fa-calculator"></i>
+                                <span>Enter values and click Predict</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="dashboard-footer">
+            <p>&copy; 2024 AI Jobs Automation & Career Prediction Dashboard | Powered by Django & Machine Learning</p>
+        </footer>
+    </div>
+
+    <!-- Custom JavaScript -->
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
+
