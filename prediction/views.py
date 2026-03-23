@@ -2,9 +2,8 @@
 Django Views - Prediction Endpoints
 """
 import json
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseNotAllowed
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_http_methods
 from .ml_utils import (
     simple_linear_regression,
     multiple_linear_regression,
@@ -14,23 +13,25 @@ from .ml_utils import (
 )
 
 
-@require_http_methods(["GET"])
 def index(request):
+    if request.method not in ['GET']:
+        return HttpResponseNotAllowed(['GET'])
     """Render the main dashboard page"""
     from django.shortcuts import render
     return render(request, 'index.html')
 
 
 @csrf_exempt
-@require_http_methods(["POST"])
 def predict_slr(request):
+    if request.method not in ['POST']:
+        return HttpResponseNotAllowed(['POST'])
     """
     Simple Linear Regression Prediction
     Predict Average Salary using Years Experience
     
     Endpoint: /predict_slr
-    Input: {"years_experience": float}
-    Output: {"prediction": dict with "annual" and "monthly", "model": "Simple Linear Regression"}
+    Input: {\"years_experience\": float}
+    Output: {\"prediction\": dict with \"annual\" and \"monthly\", \"model\": \"Simple Linear Regression\"}
     """
     try:
         data = json.loads(request.body)
@@ -55,12 +56,13 @@ def predict_slr(request):
     except ValueError as e:
         return JsonResponse({'error': str(e)}, status=400)
     except Exception as e:
-        return JsonResponse({'error': f'Server error: {str(e)}'}, status=500)
+        return JsonResponse({'error': 'Server error: {str(e)}'.format(str(e))}, status=500)
 
 
 @csrf_exempt
-@require_http_methods(["POST"])
 def predict_mlr(request):
+    if request.method not in ['POST']:
+        return HttpResponseNotAllowed(['POST'])
     """
     Multiple Linear Regression Prediction
     Predict Automation Probability using:
@@ -122,12 +124,13 @@ def predict_mlr(request):
     except ValueError as e:
         return JsonResponse({'error': str(e)}, status=400)
     except Exception as e:
-        return JsonResponse({'error': f'Server error: {str(e)}'}, status=500)
+        return JsonResponse({'error': 'Server error: {}'.format(str(e))}, status=500)
 
 
 @csrf_exempt
-@require_http_methods(["POST"])
 def predict_logistic(request):
+    if request.method not in ['POST']:
+        return HttpResponseNotAllowed(['POST'])
     """
     Logistic Regression Prediction
     Predict Risk Category (Low / Medium / High) using:
@@ -180,12 +183,13 @@ def predict_logistic(request):
     except ValueError as e:
         return JsonResponse({'error': str(e)}, status=400)
     except Exception as e:
-        return JsonResponse({'error': f'Server error: {str(e)}'}, status=500)
+        return JsonResponse({'error': 'Server error: {}'.format(str(e))}, status=500)
 
 
 @csrf_exempt
-@require_http_methods(["POST"])
 def predict_knn(request):
+    if request.method not in ['POST']:
+        return HttpResponseNotAllowed(['POST'])
     """
     KNN Classification Prediction
     Predict Education Level using:
@@ -238,19 +242,20 @@ def predict_knn(request):
     except ValueError as e:
         return JsonResponse({'error': str(e)}, status=400)
     except Exception as e:
-        return JsonResponse({'error': f'Server error: {str(e)}'}, status=500)
+        return JsonResponse({'error': 'Server error: {}'.format(str(e))}, status=500)
 
 
 @csrf_exempt
-@require_http_methods(["POST"])
 def predict_polynomial(request):
+    if request.method not in ['POST']:
+        return HttpResponseNotAllowed(['POST'])
     """
     Polynomial Regression Prediction (degree=3)
     Predict Automation Probability using AI Exposure Index
     
     Endpoint: /predict_polynomial
-    Input: {"ai_exposure_index": float (0-1)}
-    Output: {"prediction": float, "model": "Polynomial Regression"}
+    Input: {\"ai_exposure_index\": float (0-1)}
+    Output: {\"prediction\": float, \"model\": \"Polynomial Regression\"}
     """
     try:
         data = json.loads(request.body)
@@ -277,5 +282,4 @@ def predict_polynomial(request):
     except ValueError as e:
         return JsonResponse({'error': str(e)}, status=400)
     except Exception as e:
-        return JsonResponse({'error': f'Server error: {str(e)}'}, status=500)
-
+        return JsonResponse({'error': 'Server error: {}'.format(str(e))}, status=500)
